@@ -159,3 +159,4 @@ npm start
 
 cd "C:\Users\SHARAN BIRADAR\Desktop\satellite-image-processor (1)\satellite-image-processor\frontend"
 cd "C:\Users\SHARAN BIRADAR\Desktop\satellite-image-processor (1)\satellite-image-processor\backend"
+
