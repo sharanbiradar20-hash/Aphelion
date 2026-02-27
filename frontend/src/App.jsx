@@ -9,6 +9,8 @@ import { RotatingText } from './components/ui/rotating-text';
 import TubesBackground from './components/ui/neon-flow';
 import { InteractiveHoverButton } from './components/ui/interactive-hover-button';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 // ─── Toast System ───────────────────────────────────────────
 const Toast = ({ message, type, onClose }) => {
   const [exiting, setExiting] = useState(false);
@@ -91,7 +93,7 @@ const EmptyStateHero = ({ onImageUpload }) => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('http://localhost:5000/api/upload', formData, {
+      const response = await axios.post(`${API_URL}/api/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
           const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -270,7 +272,7 @@ function App() {
 
       const moduleEndpoint = moduleMap[selectedModule] || 'module2';
 
-      const response = await fetch(`http://localhost:5000/api/process/${moduleEndpoint}`, {
+      const response = await fetch(`${API_URL}/api/process/${moduleEndpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -442,7 +444,7 @@ function App() {
                       try {
                         const formData = new FormData();
                         formData.append('file', file);
-                        const response = await axios.post('http://localhost:5000/api/upload', formData, {
+                        const response = await axios.post(`${API_URL}/api/upload`, formData, {
                           headers: { 'Content-Type': 'multipart/form-data' },
                         });
                         if (response.data.error) throw new Error(response.data.error);
