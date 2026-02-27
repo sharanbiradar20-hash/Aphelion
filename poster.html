@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satellite Image Processor — Project Poster</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ── Reset ──────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* ── A2 Canvas (420 × 594 mm ≈ 1587 × 2245 px @96 dpi) ── */
+    @page {
+      size: 420mm 594mm;
+      margin: 0;
+    }
+
+    html,
+    body {
+      background: #0a0a0f;
+    }
+
+    .poster {
+      width: 420mm;
+      height: 594mm;
+      background: linear-gradient(160deg, #06060e 0%, #0d0d1a 40%, #0a0a14 100%);
+      font-family: 'Inter', system-ui, sans-serif;
+      color: #e4e4ef;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 36mm 32mm 28mm;
+    }
+
+    /* ── Decorative Background Elements ─────────────── */
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .poster::after {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.07) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    .bg-orb-1 {
+      width: 340px;
+      height: 340px;
+      top: 180px;
+      right: 60px;
+      background: rgba(59, 130, 246, 0.18);
+    }
+
+    .bg-orb-2 {
+      width: 260px;
+      height: 260px;
+      bottom: 320px;
+      left: 40px;
+      background: rgba(139, 92, 246, 0.12);
+    }
+
+    .bg-orb-3 {
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 55%;
+      background: rgba(236, 72, 153, 0.08);
+    }
+
+    /* ── Top Accent Line ───────────────────────────── */
+    .top-accent {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #3b82f6 0%, #6366f1 40%, #a855f7 70%, #ec4899 100%);
+    }
+
+    /* ── Typography ────────────────────────────────── */
+    h1 {
+      font-size: 52pt;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      background: linear-gradient(135deg, #ffffff 0%, #93c5fd 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6mm;
+    }
+
+    .subtitle {
+      font-size: 16pt;
+      font-weight: 400;
+      color: rgba(148, 163, 184, 0.9);
+      line-height: 1.5;
+      max-width: 85%;
+      margin-bottom: 14mm;
+    }
+
+    h2 {
+      font-size: 19pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 6mm;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2 .icon {
+      display: inline-flex;
+      flex-shrink: 0;
+    }
+
+    h2 .label {
+      background: linear-gradient(90deg, #60a5fa, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(99, 102, 241, 0.35), transparent);
+    }
+
+    /* ── Layout ─────────────────────────────────────── */
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20mm;
+      margin-bottom: 18mm;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14mm;
+      margin-bottom: 18mm;
+    }
+
+    .section {
+      margin-bottom: 18mm;
+    }
+
+    /* ── Cards ──────────────────────────────────────── */
+    .card {
+      background: rgba(15, 15, 30, 0.6);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+      border-radius: 14px;
+      padding: 20px 24px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .card-title {
+      font-size: 12.5pt;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #c4b5fd;
+    }
+
+    /* ── Bullet lists ──────────────────────────────── */
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 12pt;
+      line-height: 1.75;
+      color: rgba(203, 213, 225, 0.92);
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+    }
+
+    /* ── Tech Stack Pills ──────────────────────────── */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 10pt;
+      font-weight: 500;
+      background: rgba(59, 130, 246, 0.10);
+      border: 1px solid rgba(59, 130, 246, 0.20);
+      color: #93c5fd;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pill.purple {
+      background: rgba(139, 92, 246, 0.10);
+      border-color: rgba(139, 92, 246, 0.20);
+      color: #c4b5fd;
+    }
+
+    .pill.pink {
+      background: rgba(236, 72, 153, 0.08);
+      border-color: rgba(236, 72, 153, 0.15);
+      color: #f9a8d4;
+    }
+
+    /* ── Process Flow ──────────────────────────────── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(15, 15, 30, 0.65);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 11pt;
+      font-weight: 500;
+      color: #c4b5fd;
+    }
+
+    .flow-step .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10pt;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .flow-arrow {
+      color: rgba(99, 102, 241, 0.4);
+      font-size: 18pt;
+    }
+
+    /* ── Results stat boxes ─────────────────────────── */
+    .stat-box {
+      text-align: center;
+      padding: 18px 14px;
+      background: rgba(15, 15, 30, 0.55);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+      border-radius: 12px;
+    }
+
+    .stat-box .value {
+      font-size: 28pt;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60a5fa, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-box .label {
+      font-size: 10pt;
+      color: rgba(148, 163, 184, 0.8);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14mm;
+      margin-bottom: 16mm;
+    }
+
+    /* ── Conclusion ─────────────────────────────────── */
+    .conclusion-box {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(139, 92, 246, 0.06));
+      border: 1px solid rgba(99, 102, 241, 0.18);
+      border-radius: 14px;
+      padding: 22px 28px;
+      font-size: 12.5pt;
+      line-height: 1.7;
+      color: rgba(203, 213, 225, 0.92);
+    }
+
+    /* ── Footer ─────────────────────────────────────── */
+    .footer {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 10pt;
+      color: rgba(100, 116, 139, 0.7);
+      border-top: 1px solid rgba(99, 102, 241, 0.1);
+      padding-top: 10mm;
+    }
+
+    .footer .dept {
+      font-weight: 600;
+      color: rgba(148, 163, 184, 0.6);
+    }
+
+    /* ── SVG icons ──────────────────────────────────── */
+    .icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .icon-sm svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .icon-card.blue {
+      background: rgba(59, 130, 246, 0.12);
+    }
+
+    .icon-card.purple {
+      background: rgba(139, 92, 246, 0.12);
+    }
+
+    .icon-card.pink {
+      background: rgba(236, 72, 153, 0.08);
+    }
+
+    .icon-card.indigo {
+      background: rgba(99, 102, 241, 0.12);
+    }
+
+    /* ── Download button ────────────────────────────── */
+    .download-btn {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.5);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* ── Print ──────────────────────────────────────── */
+    @media print {
+      body {
+        background: #06060e;
+      }
+
+      .poster {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .download-btn {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating download / print button -->
+  <button class="download-btn" onclick="window.print()" title="Print or save as PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <polyline points="7 10 12 15 17 10" />
+      <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+    Download PDF
+  </button>
+
+  <div class="poster">
+    <!-- Background decoration -->
+    <div class="top-accent"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header>
+      <h1>Satellite Image<br />Processor</h1>
+      <p class="subtitle">
+        A comprehensive web application for digital image processing — implementing
+        intensity transformations, frequency-domain filtering, image restoration, and
+        color processing algorithms based on Gonzalez &amp; Woods' textbook framework.
+      </p>
+    </header>
+
+    <!-- ═══════════════ CONTENT ═══════════════ -->
+    <div class="content">
+
+      <!-- ── OBJECTIVES  &  INTRODUCTION ──────── -->
+      <div class="grid-2">
+        <!-- Objectives -->
+        <div>
+          <h2>
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                <path d="M2 12h20" />
+              </svg>
+            </span>
+            <span class="label">Objectives</span>
+          </h2>
+          <ul>
+            <li>Build an interactive, browser-based platform for real‑time satellite image analysis</li>
+            <li>Implement core DIP algorithms — spatial &amp; frequency-domain transforms</li>
+            <li>Provide side-by-side comparison and quantitative quality metrics (PSNR, SSIM, MSE)</li>
+            <li>Enable noise modelling, restoration, and morphological processing</li>
+            <li>Support multi-space color processing (RGB, HSV, Lab, YCbCr)</li>
+          </ul>
+        </div>
+
+        <!-- Tech Stack -->
+        <div>
+          <h2>
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8" />
+                <path d="M12 17v4" />
+              </svg>
+            </span>
+            <span class="label">Tech Stack</span>
+          </h2>
+          <p style="font-size:11pt;color:rgba(148,163,184,0.8);margin-bottom:10px;font-weight:500;">Backend</p>
+          <div class="pills">
+            <span class="pill">Python 3.11</span>
+            <span class="pill">Flask</span>
+            <span class="pill purple">OpenCV</span>
+            <span class="pill purple">NumPy</span>
+            <span class="pill purple">SciPy</span>
+            <span class="pill pink">Matplotlib</span>
+          </div>
+          <p style="font-size:11pt;color:rgba(148,163,184,0.8);margin:14px 0 10px;font-weight:500;">Frontend</p>
+          <div class="pills">
+            <span class="pill">React 18</span>
+            <span class="pill">Tailwind CSS</span>
+            <span class="pill purple">Recharts</span>
+            <span class="pill purple">Axios</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── METHODOLOGY / PROCESS FLOW ──────── -->
+      <div class="section">
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          </span>
+          <span class="label">Methodology &amp; Process</span>
+        </h2>
+        <div class="flow">
+          <div class="flow-step"><span class="num">1</span>Upload Image</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step"><span class="num">2</span>Select Module</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step"><span class="num">3</span>Choose Algorithm</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step"><span class="num">4</span>Adjust Parameters</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step"><span class="num">5</span>Process &amp; Compare</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-step"><span class="num">6</span>Export Results</div>
+        </div>
+      </div>
+
+      <!-- ── PROCESSING MODULES (CARDS) ──────── -->
+      <div class="section">
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" />
+              <rect x="14" y="3" width="7" height="7" />
+              <rect x="3" y="14" width="7" height="7" />
+              <rect x="14" y="14" width="7" height="7" />
+            </svg>
+          </span>
+          <span class="label">Processing Modules</span>
+        </h2>
+        <div class="grid-2" style="margin-bottom:0;">
+          <!-- Module 1 -->
+          <div class="card">
+            <div class="icon-card blue">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2">
+                <path d="M12 3v18M3 12h18" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+            </div>
+            <div class="card-title">Intensity Transformations</div>
+            <ul>
+              <li>Linear, logarithmic &amp; power-law transforms</li>
+              <li>Histogram equalisation &amp; specification</li>
+              <li>Spatial filtering — smoothing &amp; sharpening</li>
+              <li>Edge detection (Sobel, Laplacian, Canny)</li>
+            </ul>
+          </div>
+          <!-- Module 2 -->
+          <div class="card">
+            <div class="icon-card purple">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <div class="card-title">Frequency Domain</div>
+            <ul>
+              <li>Fourier Transform &amp; spectrum visualisation</li>
+              <li>Low-pass, high-pass &amp; band-pass filters</li>
+              <li>Gaussian, Butterworth &amp; ideal filter kernels</li>
+              <li>Frequency-domain noise removal</li>
+            </ul>
+          </div>
+          <!-- Module 3 -->
+          <div class="card">
+            <div class="icon-card indigo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2">
+                <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+                <path d="m9.2 22 3-7" />
+                <path d="m12.8 22 3-7" />
+              </svg>
+            </div>
+            <div class="card-title">Image Restoration</div>
+            <ul>
+              <li>Noise modelling — Gaussian, salt-&amp;-pepper, Poisson</li>
+              <li>Wiener filtering &amp; constrained least squares</li>
+              <li>Deblurring &amp; deconvolution techniques</li>
+              <li>Morphological operations (erosion, dilation, opening)</li>
+            </ul>
+          </div>
+          <!-- Module 4 -->
+          <div class="card">
+            <div class="icon-card pink">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f472b6" stroke-width="2">
+                <circle cx="13.5" cy="6.5" r="2.5" />
+                <circle cx="17.5" cy="10.5" r="2.5" />
+                <circle cx="8.5" cy="7.5" r="2.5" />
+                <circle cx="6.5" cy="12.5" r="2.5" />
+                <path d="M12 22c-4.97 0-9-2.239-9-5v-2.5C3 11.015 7.03 8.5 12 8.5s9 2.515 9 6V17c0 2.761-4.03 5-9 5Z" />
+              </svg>
+            </div>
+            <div class="card-title">Color Processing</div>
+            <ul>
+              <li>Color space conversions (RGB ↔ HSV ↔ Lab ↔ YCbCr)</li>
+              <li>Color enhancement &amp; correction</li>
+              <li>Color-based segmentation</li>
+              <li>Color quantisation &amp; style transfer</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── KEY RESULTS ─────────────────────── -->
+      <div class="section">
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+          </span>
+          <span class="label">Key Results</span>
+        </h2>
+        <div class="stats-row">
+          <div class="stat-box">
+            <div class="value">20+</div>
+            <div class="label">DIP Algorithms</div>
+          </div>
+          <div class="stat-box">
+            <div class="value">4</div>
+            <div class="label">Processing Modules</div>
+          </div>
+          <div class="stat-box">
+            <div class="value">Real‑Time</div>
+            <div class="label">Preview &amp; Comparison</div>
+          </div>
+          <div class="stat-box">
+            <div class="value">3</div>
+            <div class="label">Quality Metrics</div>
+          </div>
+        </div>
+        <div class="grid-2" style="margin-bottom:0;">
+          <ul>
+            <li>Interactive before/after slider for visual comparison</li>
+            <li>Live histogram &amp; frequency-spectrum visualisation</li>
+            <li>Quantitative quality assessment — PSNR, SSIM, MSE</li>
+          </ul>
+          <ul>
+            <li>Modular architecture enables easy extension of processing pipeline</li>
+            <li>Responsive UI works across desktop &amp; tablet viewports</li>
+            <li>REST API design allows headless / batch processing workflows</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── CONCLUSION ──────────────────────── -->
+      <div class="section" style="margin-bottom:0;">
+        <h2>
+          <span class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+          </span>
+          <span class="label">Conclusion</span>
+        </h2>
+        <div class="conclusion-box">
+          The Satellite Image Processor successfully bridges theory and practice by translating
+          the algorithms from Gonzalez &amp; Woods into an accessible, browser-based tool. Its modular
+          Flask + React architecture supports rapid experimentation with intensity, frequency, restoration,
+          and color processing techniques — backed by quantitative metrics for objective evaluation.
+          The project demonstrates a scalable framework for both academic learning and practical
+          satellite image analysis.
+        </div>
+      </div>
+
+    </div><!-- /content -->
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <div class="footer">
+      <div>
+        <span class="dept">Department of Computer Science &amp; Engineering</span><br />
+        Satellite Image Processing — Academic Project 2026
+      </div>
+      <div style="text-align:right;">
+        Based on <em>Digital Image Processing</em><br />
+        by Gonzalez &amp; Woods
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
