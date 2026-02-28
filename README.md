@@ -1,159 +1,162 @@
-# Satellite Image Processing Web Application
+🛰️ Satellite Image Processing Web App
 
-A comprehensive web application for digital image processing operations based on the "Digital Image Processing" textbook by Gonzalez & Woods. This academic project provides a platform for implementing and experimenting with various image processing algorithms.
+An interactive web application for experimenting with Digital Image Processing techniques based on Gonzalez & Woods.
 
-## Project Structure
+This project provides a modular platform to apply, visualize, and compare spatial, frequency-domain, restoration, and color processing algorithms on satellite imagery.
 
+✨ Features
+
+📤 Upload and process satellite images
+
+🔍 Real-time filter application
+
+📊 Histogram visualization
+
+🆚 Before/after comparison slider
+
+📈 Quality metrics display
+
+🎨 Modern animated React UI
+
+🧠 Processing Modules
+Module 2 — Intensity Transformations
+
+Linear, Log, and Power-law transforms
+
+Histogram equalization
+
+Spatial smoothing & sharpening
+
+Edge detection
+
+Module 3 — Frequency Domain
+
+Fourier Transform
+
+Low-pass / High-pass / Band-pass filters
+
+Ideal, Gaussian, Butterworth filters
+
+Module 4 — Image Restoration
+
+Noise modeling & reduction
+
+Deblurring & deconvolution
+
+Wiener filtering
+
+Morphological operations
+
+Module 5 — Color Processing
+
+RGB, HSV, Lab, YCbCr conversions
+
+Color enhancement
+
+Color segmentation
+
+Color quantization
+
+🏗️ Project Structure
 satellite-image-processor/
+│
 ├── backend/
-│   ├── app.py                 # Flask server
-│   ├── requirements.txt       # Python dependencies
-│   ├── processors/           # Image processing modules
-│   │   ├── _init_.py
-│   │   ├── module2_intensity.py
-│   │   ├── module3_frequency.py
-│   │   ├── module4_restoration.py
-│   │   └── module5_color.py
-│   ├── utils/                # Utility functions
-│   │   ├── _init_.py
-│   │   ├── metrics.py
-│   │   └── visualization.py
-│   └── uploads/              # Temporary file storage
+│   ├── app.py
+│   ├── processors/
+│   ├── utils/
+│   └── uploads/
+│
 └── frontend/
-    ├── package.json          # Node.js dependencies
-    ├── tailwind.config.js    # Tailwind CSS configuration
-    ├── postcss.config.js     # PostCSS configuration
-    └── src/
-        ├── App.jsx           # Main React component
-        ├── components/       # React components
-        │   ├── ImageUploader.jsx
-        │   ├── FilterControls.jsx
-        │   ├── ComparisonSlider.jsx
-        │   ├── HistogramDisplay.jsx
-        │   └── MetricsPanel.jsx
-        └── styles/
-            └── App.css       # Custom styles with Tailwind
+    ├── src/
+    └── components/
+🛠️ Tech Stack
+Backend
 
-## Tech Stack
+Python 3.11 ⚠️ (MANDATORY)
 
-### Backend
-- **Python 3.11** — Core programming language
-- **Flask 3.0.0** — Web framework & REST API
-- **Flask-CORS 4.0.0** — Cross-origin resource sharing
-- **OpenCV 4.8.1.78** — Image I/O and processing operations
-- **NumPy 1.24.3** — Array operations & matrix math
-- **SciPy 1.11.4** — FFT operations and advanced algorithms
-- **Matplotlib 3.8.2** — Spectrum visualization
-- **Pillow 10.1.0** — Additional image format support
-- **Werkzeug** — Secure file upload handling
+Flask
 
-### Frontend
-- **React 18** (Create React App) — UI framework
-- **JavaScript (JSX)** — Component logic
-- **Tailwind CSS** — Utility-first CSS framework
-- **Framer Motion** — Animations, transitions & AnimatePresence
-- **Three.js** (`threejs-components` via CDN) — 3D neon tubes interactive background
-- **Axios** — HTTP client for image uploads
-- **Recharts** — Histogram & data visualization
-- **Lucide React** — SVG icon library
-- **Radix UI** (`@radix-ui/react-slot`) — Composable UI primitives
-- **class-variance-authority** — Variant-based component styling
-- **clsx + tailwind-merge** — Class name merging utility (`cn()`)
+OpenCV
 
-### Dev Tools
-- **PostCSS + Autoprefixer** — CSS processing for Tailwind
-- **npm** — Frontend package management
-- **pip** — Backend package management
+NumPy
 
-## Features
+SciPy
 
-### Processing Modules
+Matplotlib
 
-1. **Module 2: Intensity Transformations**
-   - Point processing operations (linear, log, power transforms)
-   - Histogram processing and equalization
-   - Spatial filtering (smoothing, sharpening)
-   - Edge detection algorithms
+Pillow
 
-2. **Module 3: Frequency Domain**
-   - Fourier Transform operations
-   - Frequency domain filtering
-   - Low-pass, high-pass, band-pass filters
-   - Gaussian, Butterworth, and ideal filters
+Frontend
 
-3. **Module 4: Image Restoration**
-   - Noise modeling and reduction
-   - Deblurring and deconvolution
-   - Wiener filtering and constrained least squares
-   - Morphological operations
+React 18
 
-4. **Module 5: Color Processing**
-   - Color space conversions (RGB, HSV, Lab, YCbCr)
-   - Color enhancement and correction
-   - Color-based segmentation
-   - Color quantization and transfer
+Tailwind CSS
 
-## Installation
+Framer Motion
 
-### Backend Setup
+Three.js
 
-1. Navigate to the backend directory:
-   bash
-   cd satellite-image-processor/backend
-   
+Recharts
 
-2. Create a virtual environment:
-   bash
-   python -m venv venv
-   
+Axios
 
-3. Activate the virtual environment:
-   bash
-   # Windows
-   venv\Scripts\activate
-   
-   # macOS/Linux
-   source venv/bin/activate
-   
+🚀 Installation
+1️⃣ Clone Repository
+git clone https://github.com/your-username/satellite-image-processor.git
+cd satellite-image-processor
+2️⃣ Backend Setup
+cd backend
+python -m venv venv
 
-4. Install dependencies:
-   bash
-   pip install -r requirements.txt
-   
+Activate environment:
 
-5. Run the Flask server:
-   bash
-   python app.py
-   
+Windows
 
-The backend will be available at `http://localhost:5000`
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-   bash
-   cd satellite-image-processor/frontend
-   
-
-2. Install dependencies:
-   bash
-   npm install
-   
-
-3. Start the development server:
-   bash
-   npm start
-   ```
-
-The frontend will be available at http://localhost:3000
-
-# python 3.11 MANDATORY
-# To restart the whole project, type
-# Backend : 
-cd backend 
 venv\Scripts\activate
+
+macOS/Linux
+
+source venv/bin/activate
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Run server:
+
 python app.py
-# Frontend : 
-cd frontend 
+
+Backend runs at:
+
+http://localhost:5000
+3️⃣ Frontend Setup
+cd frontend
+npm install
 npm start
 
+Frontend runs at:
+
+http://localhost:3000
+🔄 Restarting the Project
+Backend
+cd backend
+venv\Scripts\activate
+python app.py
+Frontend
+cd frontend
+npm start
+📌 Requirements
+
+Python 3.11 required
+
+Node.js 18+
+
+npm
+
+📚 Academic Context
+
+This project is inspired by:
+
+Gonzalez, R. C., & Woods, R. E. — Digital Image Processing
+
+Designed for educational and experimental purposes.
