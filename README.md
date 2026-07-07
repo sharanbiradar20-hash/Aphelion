@@ -1,63 +1,73 @@
-🛰️ Satellite Image Processing Web App
+# 🛰️ Satellite Image Processing Web App
 
-An interactive web application for experimenting with Digital Image Processing techniques based on Gonzalez & Woods.
+An interactive web application for experimenting with Digital Image Processing techniques based on **Gonzalez & Woods**.
 
-This project provides a modular platform to apply, visualize, and compare spatial, frequency-domain, restoration, and color processing algorithms on satellite imagery.
+This project provides a modular platform to apply, visualize, and compare spatial, frequency-domain, restoration, and color-processing algorithms on satellite imagery.
 
-✨ Features
+![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Backend-black?logo=flask&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-📤 Upload and process satellite images
+---
 
-🔍 Real-time filter application
+## 📋 Table of Contents
 
-📊 Histogram visualization
+- [Features](#-features)
+- [Processing Modules](#-processing-modules)
+- [Project Structure](#️-project-structure)
+- [Tech Stack](#️-tech-stack)
+- [Installation](#-installation)
+- [Restarting the Project](#-restarting-the-project)
+- [Requirements](#-requirements)
+- [Academic Context](#-academic-context)
+- [License](#-license)
 
-🆚 Before/after comparison slider
+---
 
-📈 Quality metrics display
+## ✨ Features
 
-🎨 Modern animated React UI
+| | |
+|---|---|
+| 📤 | Upload and process satellite images |
+| 🔍 | Real-time filter application |
+| 📊 | Histogram visualization |
+| 🆚 | Before/after comparison slider |
+| 📈 | Quality metrics display |
+| 🎨 | Modern, animated React UI |
 
-🧠 Processing Modules
-Module 2 — Intensity Transformations
+---
 
-Linear, Log, and Power-law transforms
+## 🧠 Processing Modules
 
-Histogram equalization
+### Module 2 — Intensity Transformations
+- Linear, log, and power-law transforms
+- Histogram equalization
+- Spatial smoothing & sharpening
+- Edge detection
 
-Spatial smoothing & sharpening
+### Module 3 — Frequency Domain
+- Fourier Transform
+- Low-pass / high-pass / band-pass filters
+- Ideal, Gaussian, and Butterworth filters
 
-Edge detection
+### Module 4 — Image Restoration
+- Noise modeling & reduction
+- Deblurring & deconvolution
+- Wiener filtering
+- Morphological operations
 
-Module 3 — Frequency Domain
+### Module 5 — Color Processing
+- RGB, HSV, Lab, and YCbCr conversions
+- Color enhancement
+- Color segmentation
+- Color quantization
 
-Fourier Transform
+---
 
-Low-pass / High-pass / Band-pass filters
+## 🏗️ Project Structure
 
-Ideal, Gaussian, Butterworth filters
-
-Module 4 — Image Restoration
-
-Noise modeling & reduction
-
-Deblurring & deconvolution
-
-Wiener filtering
-
-Morphological operations
-
-Module 5 — Color Processing
-
-RGB, HSV, Lab, YCbCr conversions
-
-Color enhancement
-
-Color segmentation
-
-Color quantization
-
-🏗️ Project Structure
+```
 satellite-image-processor/
 │
 ├── backend/
@@ -69,94 +79,115 @@ satellite-image-processor/
 └── frontend/
     ├── src/
     └── components/
-🛠️ Tech Stack
-Backend
+```
 
-Python 3.11 ⚠️ (MANDATORY)
+---
 
-Flask
+## 🛠️ Tech Stack
 
-OpenCV
+**Backend**
+- Python 3.11 ⚠️ *(mandatory)*
+- Flask
+- OpenCV
+- NumPy
+- SciPy
+- Matplotlib
+- Pillow
 
-NumPy
+**Frontend**
+- React 18
+- Tailwind CSS
+- Framer Motion
+- Three.js
+- Recharts
+- Axios
 
-SciPy
+---
 
-Matplotlib
+## 🚀 Installation
 
-Pillow
+### 1️⃣ Clone the repository
 
-Frontend
-
-React 18
-
-Tailwind CSS
-
-Framer Motion
-
-Three.js
-
-Recharts
-
-Axios
-
-🚀 Installation
-1️⃣ Clone Repository
+```bash
 git clone https://github.com/your-username/satellite-image-processor.git
 cd satellite-image-processor
-2️⃣ Backend Setup
+```
+
+### 2️⃣ Backend setup
+
+```bash
 cd backend
 python -m venv venv
+```
 
-Activate environment:
+Activate the virtual environment:
 
-Windows
-
+```bash
+# Windows
 venv\Scripts\activate
 
-macOS/Linux
-
+# macOS/Linux
 source venv/bin/activate
+```
 
-Install dependencies:
+Install dependencies and run the server:
 
+```bash
 pip install -r requirements.txt
-
-Run server:
-
 python app.py
+```
 
-Backend runs at:
+The backend runs at **http://localhost:5000**
 
-http://localhost:5000
-3️⃣ Frontend Setup
+### 3️⃣ Frontend setup
+
+```bash
 cd frontend
 npm install
 npm start
+```
 
-Frontend runs at:
+The frontend runs at **http://localhost:3000**
 
-http://localhost:3000
-🔄 Restarting the Project
-Backend
+---
+
+## 🔄 Restarting the Project
+
+**Backend**
+
+```bash
 cd backend
 venv\Scripts\activate
 python app.py
-Frontend
+```
+
+**Frontend**
+
+```bash
 cd frontend
 npm start
-📌 Requirements
+```
 
-Python 3.11 required
+---
 
-Node.js 18+
+## 📌 Requirements
 
-npm
+- Python 3.11 (required)
+- Node.js 18+
+- npm
 
-📚 Academic Context
+---
+
+## 📚 Academic Context
 
 This project is inspired by:
 
-Gonzalez, R. C., & Woods, R. E. — Digital Image Processing
+> Gonzalez, R. C., & Woods, R. E. — *Digital Image Processing*
 
 Designed for educational and experimental purposes.
+
+---
+
+## 📄 License
+
+This project is intended for educational use. Add your preferred license (e.g., MIT) here.
