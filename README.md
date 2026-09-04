@@ -2,7 +2,8 @@
 
 An interactive web application for experimenting with Digital Image Processing techniques based on **Gonzalez & Woods**.
 
-This project provides a modular platform to apply, visualize, and compare spatial, frequency-domain, restoration, and color-processing algorithms on satellite imagery.
+An interactive web application for exploring Digital Image Processing through real satellite imagery, inspired by Gonzalez & Woods. Aphelion transforms traditionally abstract image-processing concepts into an intuitive, visual experience, allowing users to apply, visualize, and compare spatial, frequency-domain, restoration, and color-processing techniques in real time. With interactive filtering, histogram visualization, before-and-after comparisons, and quality metrics, the platform makes it easier to understand not only **what** an algorithm does, but **how and why** it changes an image.
+
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
@@ -188,6 +189,4 @@ Designed for educational and experimental purposes.
 
 ---
 
-## 📄 License
-
-This project is intended for educational use. Add your preferred license (e.g., MIT) here.
+This project is intended for educational use.
